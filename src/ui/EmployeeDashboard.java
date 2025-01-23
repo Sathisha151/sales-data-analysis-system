@@ -56,7 +56,8 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         btnsalesAnalysisButton1 = new javax.swing.JButton();
         btnsalesAnalysisButton2 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
+        btnsalesAnalysisButton3 = new javax.swing.JButton();
+        txtUser = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,7 +113,8 @@ public class EmployeeDashboard extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("logout");
+        jButton1.setBackground(new java.awt.Color(204, 204, 204));
+        jButton1.setText("Logout");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -140,77 +142,87 @@ public class EmployeeDashboard extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
         jLabel2.setText("Sales Analysis");
 
-        jButton6.setBackground(new java.awt.Color(102, 153, 255));
-        jButton6.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
-        jButton6.setText("load csv file");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnsalesAnalysisButton3.setBackground(new java.awt.Color(102, 255, 255));
+        btnsalesAnalysisButton3.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
+        btnsalesAnalysisButton3.setText("Change Password");
+        btnsalesAnalysisButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnsalesAnalysisButton3ActionPerformed(evt);
             }
         });
+
+        txtUser.setFont(new java.awt.Font("Times New Roman", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(101, 101, 101))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(647, 647, 647)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(347, 347, 347)
+                        .addGap(271, 271, 271)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnbranchPerformanceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnsalesAnalysisButton, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnbestSellingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnsalesAnalysisButton, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(115, 115, 115)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnproductPerformanceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnsalesAnalysisButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(111, 111, 111)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btncustomerAnalysisButton, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnsalesAnalysisButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnbranchPerformanceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(142, 142, 142)
+                                .addComponent(btnsalesAnalysisButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(190, Short.MAX_VALUE))
+                                .addComponent(btnsalesAnalysisButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(263, 263, 263)
+                        .addComponent(btnbestSellingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(150, 150, 150)
+                        .addComponent(btnproductPerformanceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(140, 140, 140)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnsalesAnalysisButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btncustomerAnalysisButton, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(210, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(78, 78, 78))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(580, 580, 580))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(120, 120, 120)
+                .addGap(32, 32, 32)
+                .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnproductPerformanceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btncustomerAnalysisButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnbestSellingButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(btnbranchPerformanceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGap(67, 67, 67)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnsalesAnalysisButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnbranchPerformanceButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnsalesAnalysisButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnsalesAnalysisButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnsalesAnalysisButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(75, 75, 75)
+                    .addComponent(btnsalesAnalysisButton, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnsalesAnalysisButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(72, 72, 72)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36))
+                .addGap(39, 39, 39))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -417,70 +429,13 @@ try (Connection conn = database.getConnection();
             this.dispose();
     }//GEN-LAST:event_btnsalesAnalysisButton2ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnsalesAnalysisButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsalesAnalysisButton3ActionPerformed
         // TODO add your handling code here:
-        try {
-            // Open a file chooser dialog to select a CSV file
-            JFileChooser jfilech = new JFileChooser();
-            jfilech.setDialogTitle("Select a CSV file");
-            int userSelected = jfilech.showOpenDialog(null);
+        ChangePasswordemployee cps = new ChangePasswordemployee();
+        cps.setVisible(true);
+        this.dispose();
 
-            if (userSelected == JFileChooser.APPROVE_OPTION) {
-                File filepath = jfilech.getSelectedFile();
-                String file = filepath.getAbsolutePath();
-
-                try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-                    String line;
-                    boolean firstLine = true;
-
-                    // Read the CSV file line by line
-                    while ((line = br.readLine()) != null) {
-                        if (firstLine) {
-                            firstLine = false; // Skip the header line
-                            continue;
-                        }
-
-                        // Split the line by commas
-                        String[] data = line.split(",");
-
-                        // Format the date
-                        SimpleDateFormat originalFormat = new SimpleDateFormat("M/d/yyyy");
-                        SimpleDateFormat targetFormat = new SimpleDateFormat("yyyy-MM-dd");
-                        java.util.Date date = originalFormat.parse(data[6]); // Parse the date
-                        String formattedDate = targetFormat.format(date); // Format the date
-
-                        // Insert data into the database
-                        try (Connection conn = database.getConnection()) {
-                            String query = "INSERT INTO Sales (TransactionID, CustomerID, ProductID, ProductName, Quantity, PriceperUnit, Date, TotalPrice, Region) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                            PreparedStatement stmt = conn.prepareStatement(query);
-
-                            stmt.setInt(1, Integer.parseInt(data[0])); // TransactionID
-                            stmt.setInt(2, Integer.parseInt(data[1])); // CustomerID
-                            stmt.setInt(3, Integer.parseInt(data[2])); // ProductID
-                            stmt.setString(4, data[3]); // ProductName
-                            stmt.setInt(5, Integer.parseInt(data[4])); // Quantity
-                            stmt.setDouble(6, Double.parseDouble(data[5])); // PricePerUnit
-                            stmt.setString(7, formattedDate); // Formatted Date
-                            stmt.setDouble(8, Double.parseDouble(data[7])); // TotalPrice
-                            stmt.setString(9, data[8]); // Region
-
-                            stmt.executeUpdate(); // Execute the query
-                        } catch (Exception e) {
-                            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
-                        }
-                    }
-
-                    JOptionPane.showMessageDialog(null, "CSV data loaded successfully!");
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "File reading error: " + e.getMessage());
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "No file selected!");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.getMessage());
-        }
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btnsalesAnalysisButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -525,10 +480,11 @@ try (Connection conn = database.getConnection();
     private javax.swing.JButton btnsalesAnalysisButton;
     private javax.swing.JButton btnsalesAnalysisButton1;
     private javax.swing.JButton btnsalesAnalysisButton2;
+    private javax.swing.JButton btnsalesAnalysisButton3;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    public static javax.swing.JLabel txtUser;
     // End of variables declaration//GEN-END:variables
 }

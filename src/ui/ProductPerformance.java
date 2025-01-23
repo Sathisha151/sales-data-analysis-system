@@ -10,17 +10,24 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRTableModelDataSource;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
@@ -132,7 +139,7 @@ public class ProductPerformance extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(524, 524, 524)
+                        .addGap(512, 512, 512)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 495, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
@@ -181,12 +188,34 @@ public class ProductPerformance extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        try {
-            jTable1.print(JTable.PrintMode.FIT_WIDTH);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+     try (Connection conn = database.getConnection()) {
+       
+        JasperDesign jsdesign = JRXmlLoader.load("C:\\Users\\Sathisha\\OneDrive\\Documents\\NetBeansProjects\\sampath_food_city\\src\\ui\\report1.jrxml");
+
+       
+        String sql = "SELECT ProductName, SUM(Quantity) AS TotalQuantity "
+                + "FROM Sales "
+                + "GROUP BY ProductName";
+
+     
+        JRDesignQuery updateQuery = new JRDesignQuery();
+        updateQuery.setText(sql);
+        jsdesign.setQuery(updateQuery);
+
+       
+        JasperReport jreport = JasperCompileManager.compileReport(jsdesign);
+
+        
+        JasperPrint jsprint = JasperFillManager.fillReport(jreport, null, conn);
+
+       
+        JasperViewer.viewReport(jsprint);
+
+    } catch (JRException | SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Error generating report: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        Logger.getLogger(bestselligproducrs.class.getName()).log(Level.SEVERE, null, ex);
+    }
+      
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

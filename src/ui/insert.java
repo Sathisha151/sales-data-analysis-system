@@ -479,4 +479,8 @@ public class insert extends javax.swing.JFrame {
     private void show_sales() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    void check(String CustomerID, String ProductID, String ProductName, String Quantity, String PriceperUnit, String Date, String TotalPrice, String Region) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

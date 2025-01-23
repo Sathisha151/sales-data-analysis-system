@@ -6,12 +6,25 @@
 package ui;
 
 import db.database;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -32,7 +45,7 @@ public class bestselligproducrs extends javax.swing.JFrame {
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
-            DefaultTableModel model = (DefaultTableModel) tbluser.getModel();
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             model.setRowCount(0); // Clear existing data
 
             while (rs.next()) {
@@ -57,7 +70,7 @@ public class bestselligproducrs extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbluser = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -69,7 +82,7 @@ public class bestselligproducrs extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jLabel1.setText("Best Selling Products");
 
-        tbluser.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -77,7 +90,7 @@ public class bestselligproducrs extends javax.swing.JFrame {
                 "ProductName", "TotalQuantity"
             }
         ));
-        jScrollPane1.setViewportView(tbluser);
+        jScrollPane1.setViewportView(jTable1);
 
         jButton1.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jButton1.setText("Back");
@@ -164,11 +177,38 @@ public class bestselligproducrs extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        try {
+        /*try {
             tbluser.print(JTable.PrintMode.FIT_WIDTH);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
-        }
+        }*/
+     try (Connection conn = database.getConnection()) {
+       
+        JasperDesign jsdesign = JRXmlLoader.load("C:\\Users\\Sathisha\\OneDrive\\Documents\\NetBeansProjects\\sampath_food_city\\src\\ui\\report2.jrxml");
+
+       
+        String sql = "SELECT ProductName, SUM(Quantity) AS TotalQuantity FROM Sales GROUP BY ProductName ORDER BY TotalQuantity DESC";
+
+     
+        JRDesignQuery updateQuery = new JRDesignQuery();
+        updateQuery.setText(sql);
+        jsdesign.setQuery(updateQuery);
+
+       
+        JasperReport jreport = JasperCompileManager.compileReport(jsdesign);
+
+        
+        JasperPrint jsprint = JasperFillManager.fillReport(jreport, null, conn);
+
+       
+        JasperViewer.viewReport(jsprint);
+
+    } catch (JRException | SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Error generating report: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        Logger.getLogger(bestselligproducrs.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
+    
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -218,6 +258,6 @@ public class bestselligproducrs extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbluser;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

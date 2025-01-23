@@ -6,12 +6,29 @@
 package ui;
 
 import db.database;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRTableModelDataSource;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -171,13 +188,32 @@ public class CustomerAnalysis extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+ try (Connection conn = database.getConnection()) {
+       
+        JasperDesign jsdesign = JRXmlLoader.load("C:\\Users\\Sathisha\\OneDrive\\Documents\\NetBeansProjects\\sampath_food_city\\src\\ui\\report4.jrxml");
 
-        // TODO add your handling code here:
-        try {
-            jTable1.print(JTable.PrintMode.FIT_WIDTH);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+       
+        String sql = "SELECT CustomerID, SUM(TotalPrice) AS TotalSpent FROM Sales GROUP BY CustomerID";
+
+     
+        JRDesignQuery updateQuery = new JRDesignQuery();
+        updateQuery.setText(sql);
+        jsdesign.setQuery(updateQuery);
+
+       
+        JasperReport jreport = JasperCompileManager.compileReport(jsdesign);
+
+        
+        JasperPrint jsprint = JasperFillManager.fillReport(jreport, null, conn);
+
+       
+        JasperViewer.viewReport(jsprint);
+
+    } catch (JRException | SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Error generating report: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        Logger.getLogger(bestselligproducrs.class.getName()).log(Level.SEVERE, null, ex);
+    }
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

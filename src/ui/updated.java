@@ -26,9 +26,10 @@ public class updated extends javax.swing.JFrame {
      */
     public updated() {
         initComponents();
-         show_user();
+        show_user();
     }
-     public ArrayList<usercode> userlist() {
+
+    public ArrayList<usercode> userlist() {
         ArrayList<usercode> userlist = new ArrayList<>();
         try {
             Connection com = database.getConnection();
@@ -60,7 +61,7 @@ public class updated extends javax.swing.JFrame {
     }
 
     public void show_user() {
-         ArrayList<usercode> list = userlist();
+        ArrayList<usercode> list = userlist();
         DefaultTableModel model = (DefaultTableModel) tbluser.getModel();
         model.setRowCount(0); // Clear the table before adding new data
         for (usercode us : list) {
@@ -239,47 +240,47 @@ public class updated extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         String TransactionID = txttid.getText().trim();
-String Quantity = txtqun.getText().trim();
-String PriceperUnit = txtppu.getText().trim();
-String TotalPrice = txttp.getText().trim();
+        String Quantity = txtqun.getText().trim();
+        String PriceperUnit = txtppu.getText().trim();
+        String TotalPrice = txttp.getText().trim();
 
 // Check if any field is empty
-if (TransactionID.isEmpty() || Quantity.isEmpty() || PriceperUnit.isEmpty() || TotalPrice.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Please fill all fields!");
-    return;
-}
+        if (TransactionID.isEmpty() || Quantity.isEmpty() || PriceperUnit.isEmpty() || TotalPrice.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please fill all fields!");
+            return;
+        }
 
-String query = "UPDATE Sales SET Quantity = ?, PricePerUnit = ?, TotalPrice = ? WHERE TransactionID = ?";
-try (Connection conn = database.getConnection();
-     PreparedStatement stmt = conn.prepareStatement(query)) {
+        String query = "UPDATE Sales SET Quantity = ?, PricePerUnit = ?, TotalPrice = ? WHERE TransactionID = ?";
+        try (Connection conn = database.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(query)) {
 
-    // Parse the input values to the correct data types
-    int quantity = Integer.parseInt(Quantity);
-    double pricePerUnit = Double.parseDouble(PriceperUnit);
-    double totalPrice = Double.parseDouble(TotalPrice);
-    int transactionID = Integer.parseInt(TransactionID);
+            // Parse the input values to the correct data types
+            int quantity = Integer.parseInt(Quantity);
+            double pricePerUnit = Double.parseDouble(PriceperUnit);
+            double totalPrice = Double.parseDouble(TotalPrice);
+            int transactionID = Integer.parseInt(TransactionID);
 
-    // Set the parameters in the correct order
-    stmt.setInt(1, quantity);
-    stmt.setDouble(2, pricePerUnit);
-    stmt.setDouble(3, totalPrice);
-    stmt.setInt(4, transactionID);
+            // Set the parameters in the correct order
+            stmt.setInt(1, quantity);
+            stmt.setDouble(2, pricePerUnit);
+            stmt.setDouble(3, totalPrice);
+            stmt.setInt(4, transactionID);
 
-    // Execute the update query
-    int rowsUpdated = stmt.executeUpdate();
+            // Execute the update query
+            int rowsUpdated = stmt.executeUpdate();
 
-    if (rowsUpdated > 0) {
-        JOptionPane.showMessageDialog(null, "Data Updated Successfully!");
-    } else {
-        JOptionPane.showMessageDialog(null, "No data found with the given Transaction ID!");
-    }
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Data Updated Successfully!");
+            } else {
+                JOptionPane.showMessageDialog(null, "No data found with the given Transaction ID!");
+            }
 
-} catch (NumberFormatException e) {
-    JOptionPane.showMessageDialog(null, "Invalid input! Please enter valid numbers.");
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(null, "Error updating data: " + e.getMessage());
-}
-   
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Invalid input! Please enter valid numbers.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error updating data: " + e.getMessage());
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -340,4 +341,8 @@ try (Connection conn = database.getConnection();
     private javax.swing.JTextField txttid;
     private javax.swing.JTextField txttp;
     // End of variables declaration//GEN-END:variables
+
+    void check(String TransactionID, String Quantity, String PriceperUnit, String TotalPrice) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

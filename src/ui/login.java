@@ -174,10 +174,15 @@ public class login extends javax.swing.JFrame {
                     if (rs.next()) {
                         String role = rs.getString("Role");
                         if (role.equals("Admin")) {
-                            new AdminDashboard().setVisible(true);
+                            AdminDashboard ad = new AdminDashboard();
+                            ad.setVisible(true);
+                            ad.txtUser.setText(txtname.getText());
                             dispose(); // Close the login form
                         } else if (role.equals("Employee")) {
-                            new EmployeeDashboard().setVisible(true);
+                            
+                            EmployeeDashboard ed = new EmployeeDashboard();
+                            ed.setVisible(true);
+                            ed.txtUser.setText(txtname.getText());
                             dispose(); // Close the login form
                         }
                     } else {
@@ -264,4 +269,8 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JTextField txtname;
     private javax.swing.JTextField txtpassword;
     // End of variables declaration//GEN-END:variables
+
+    void check(String username, String psw) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

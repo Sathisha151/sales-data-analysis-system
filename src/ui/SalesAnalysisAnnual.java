@@ -9,9 +9,21 @@ import db.database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -172,11 +184,33 @@ public class SalesAnalysisAnnual extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        try {
-            jTable1.print(JTable.PrintMode.FIT_WIDTH);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e);
-        }
+         try (Connection conn = database.getConnection()) {
+       
+        JasperDesign jsdesign = JRXmlLoader.load("C:\\Users\\Sathisha\\OneDrive\\Documents\\NetBeansProjects\\sampath_food_city\\src\\ui\\report7.jrxml");
+
+       
+        String sql = "SELECT YEAR(Date) AS SalesYear, SUM(TotalPrice) AS AnnualSales " +
+                       "FROM Sales " +
+                       "GROUP BY YEAR(Date)";
+
+     
+        JRDesignQuery updateQuery = new JRDesignQuery();
+        updateQuery.setText(sql);
+        jsdesign.setQuery(updateQuery);
+
+       
+        JasperReport jreport = JasperCompileManager.compileReport(jsdesign);
+
+        
+        JasperPrint jsprint = JasperFillManager.fillReport(jreport, null, conn);
+
+       
+        JasperViewer.viewReport(jsprint);
+
+    } catch (JRException | SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Error generating report: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        Logger.getLogger(bestselligproducrs.class.getName()).log(Level.SEVERE, null, ex);
+    }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

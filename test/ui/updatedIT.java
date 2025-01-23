@@ -5,6 +5,8 @@
  */
 package ui;
 
+import code.usercode;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,9 +18,9 @@ import static org.junit.Assert.*;
  *
  * @author Sathisha
  */
-public class loginIT {
+public class updatedIT {
     
-    public loginIT() {
+    public updatedIT() {
     }
     
     @BeforeClass
@@ -38,18 +40,37 @@ public class loginIT {
     }
 
     /**
-     * Test of main method, of class login.
+     * Test of  method, of class updated.
+     */
+    @Test
+    public void testUserlist() {
+        
+    }
+
+    /**
+     * Test of show_user method, of class updated.
+     */
+    @Test
+    public void testShow_user() {
+       
+    }
+
+    /**
+     * Test of main method, of class updated.
      */
     @Test
     public void testMain() {
-        
+       
     }
     public void testCheck() {
         System.out.println("check");
-        String username = "admin";
-        String password = "admin123";
-        login instance = new login();
-        instance.check(username, password);
+        
+        String TransactionID = "1";
+        String Quantity ="10" ;
+        String PriceperUnit = "100";
+        String TotalPrice = "1000";
+        updated instance = new updated();
+        instance.check( TransactionID,Quantity,PriceperUnit,TotalPrice );
         
     }
     

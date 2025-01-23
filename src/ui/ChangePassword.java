@@ -8,6 +8,7 @@ package ui;
 import db.database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -80,6 +81,12 @@ public class ChangePassword extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jLabel5.setText("Username");
 
+        txtusername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtusernameActionPerformed(evt);
+            }
+        });
+
         jButton2.setFont(new java.awt.Font("Times New Roman", 0, 18)); // NOI18N
         jButton2.setText("Back");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -94,25 +101,24 @@ public class ChangePassword extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(415, 415, 415)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtusername, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCurrentPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                                .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(538, 538, 538))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                        .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCurrentPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtusername, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(538, 538, 538))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(593, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -168,34 +174,71 @@ public class ChangePassword extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        String username = txtusername.getText();
-    if (username == null || username.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Username cannot be empty!");
+ /*String username = txtusername.getText();
+if (username == null || username.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Username cannot be empty!");
+    return;
+}
+
+// Ensure the user is the admin
+
+
+// Get current password
+String currentPassword = txtCurrentPassword.getText();
+if (currentPassword == null || currentPassword.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Current password cannot be empty!");
+    return;
+}
+
+// Get new password
+String newPassword = txtNewPassword.getText();
+if (newPassword == null || newPassword.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "New password cannot be empty!");
+    return;
+}
+
+// Confirm new password
+String confirmPassword = txtConfirmPassword.getText();
+if (confirmPassword == null || confirmPassword.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Confirm password cannot be empty!");
+    return;
+}
+
+// Check if new password and confirm password match
+if (!newPassword.equals(confirmPassword)) {
+    JOptionPane.showMessageDialog(this, "New password and confirm password do not match!");
+    return;
+}
+
+// Update password in the database
+String query = "UPDATE Users SET Password = ? WHERE Username = ? AND Password = ?";
+try (Connection conn = database.getConnection(); // Replace 'database' with your DB connection object
+     PreparedStatement stmt = conn.prepareStatement(query)) {
+    stmt.setString(1, newPassword);
+    stmt.setString(2, username);
+    stmt.setString(3, currentPassword);
+    int rowsUpdated = stmt.executeUpdate();
+
+    if (rowsUpdated > 0) {
+        JOptionPane.showMessageDialog(this, "Password changed successfully!");
+    } else {
+        JOptionPane.showMessageDialog(this, "Failed to change password. Check your current password.");
+    }
+} catch (SQLException ex) {
+    ex.printStackTrace();
+    JOptionPane.showMessageDialog(this, "Error changing password.");
+}*/
+ String username = txtusername.getText();
+    String currentPassword = new String(txtCurrentPassword.getText());
+    String newPassword = new String(txtNewPassword.getText());
+    String confirmPassword = new String(txtConfirmPassword.getText());
+
+    // Validation
+    if (currentPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Fields cannot be empty!");
         return;
     }
 
-    // Get current password
-    String currentPassword = txtCurrentPassword.getText();
-    if (currentPassword == null || currentPassword.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Current password cannot be empty!");
-        return;
-    }
-
-    // Get new password
-    String newPassword = txtNewPassword.getText();
-    if (newPassword == null || newPassword.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "New password cannot be empty!");
-        return;
-    }
-
-    // Confirm new password
-    String confirmPassword = txtConfirmPassword.getText();
-    if (confirmPassword == null || confirmPassword.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Confirm password cannot be empty!");
-        return;
-    }
-
-    // Check if new password and confirm password match
     if (!newPassword.equals(confirmPassword)) {
         JOptionPane.showMessageDialog(this, "New password and confirm password do not match!");
         return;
@@ -228,6 +271,10 @@ public class ChangePassword extends javax.swing.JFrame {
         adb.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtusernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtusernameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtusernameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -277,6 +324,10 @@ public class ChangePassword extends javax.swing.JFrame {
     private javax.swing.JTextField txtConfirmPassword;
     private javax.swing.JTextField txtCurrentPassword;
     private javax.swing.JTextField txtNewPassword;
-    private javax.swing.JTextField txtusername;
+    public static javax.swing.JTextField txtusername;
     // End of variables declaration//GEN-END:variables
+
+    void check(String username, String currentPassword, String newPassword, String confirmPassword) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

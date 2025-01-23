@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author Sathisha
  */
-public class loginIT {
+public class deletedataIT {
     
-    public loginIT() {
+    public deletedataIT() {
     }
     
     @BeforeClass
@@ -38,7 +38,7 @@ public class loginIT {
     }
 
     /**
-     * Test of main method, of class login.
+     * Test of main method, of class deletedata.
      */
     @Test
     public void testMain() {
@@ -46,10 +46,10 @@ public class loginIT {
     }
     public void testCheck() {
         System.out.println("check");
-        String username = "admin";
-        String password = "admin123";
-        login instance = new login();
-        instance.check(username, password);
+        String transactionID ="10";
+       
+       deletedata instance = new deletedata();
+        instance.check(transactionID);
         
     }
     
