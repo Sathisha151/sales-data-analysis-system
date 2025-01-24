@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import static ui.ChangePassword.txtusername;
 
 /**
  *
@@ -163,63 +164,39 @@ public class ChangePasswordemployee extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
         String username = txtusername3.getText();
-        if (username == null || username.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Username cannot be empty!");
-            return;
+    String currentPassword = new String(txtCurrentPassword3.getText());
+    String newPassword = new String(txtNewPassword3.getText());
+    String confirmPassword = new String(txtConfirmPassword3.getText());
+
+    // Validation
+    if (currentPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Fields cannot be empty!");
+        return;
+    }
+
+    if (!newPassword.equals(confirmPassword)) {
+        JOptionPane.showMessageDialog(this, "New password and confirm password do not match!");
+        return;
+    }
+
+    // Update password in the database
+    String query = "UPDATE Users SET Password = ? WHERE Username = ? AND Password = ?";
+    try (Connection conn = database.getConnection(); // Replace 'database' with your DB connection object
+         PreparedStatement stmt = conn.prepareStatement(query)) {
+        stmt.setString(1, newPassword);
+        stmt.setString(2, username);
+        stmt.setString(3, currentPassword);
+        int rowsUpdated = stmt.executeUpdate();
+
+        if (rowsUpdated > 0) {
+            JOptionPane.showMessageDialog(this, "Password changed successfully!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to change password. Check your current password.");
         }
-
-        // Ensure the user is the admin
-        if (!username.equals("employee")) { // Replace "admin" with the actual admin username
-            JOptionPane.showMessageDialog(this, "Only employee can change password here!");
-            return;
-        }
-
-        // Get current password
-        String currentPassword = txtCurrentPassword3.getText();
-        if (currentPassword == null || currentPassword.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Current password cannot be empty!");
-            return;
-        }
-
-        // Get new password
-        String newPassword = txtNewPassword3.getText();
-        if (newPassword == null || newPassword.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "New password cannot be empty!");
-            return;
-        }
-
-        // Confirm new password
-        String confirmPassword = txtConfirmPassword3.getText();
-        if (confirmPassword == null || confirmPassword.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Confirm password cannot be empty!");
-            return;
-        }
-
-        // Check if new password and confirm password match
-        if (!newPassword.equals(confirmPassword)) {
-            JOptionPane.showMessageDialog(this, "New password and confirm password do not match!");
-            return;
-        }
-
-        // Update password in the database
-        String query = "UPDATE Users SET Password = ? WHERE Username = ? AND Password = ?";
-        try (Connection conn = database.getConnection(); // Replace 'database' with your DB connection object
-            PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, newPassword);
-            stmt.setString(2, username);
-            stmt.setString(3, currentPassword);
-            int rowsUpdated = stmt.executeUpdate();
-
-            if (rowsUpdated > 0) {
-                JOptionPane.showMessageDialog(this, "Password changed successfully!");
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to change password. Check your current password.");
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error changing password.");
-        }
-
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error changing password.");
+    }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -276,7 +253,7 @@ public class ChangePasswordemployee extends javax.swing.JFrame {
     private javax.swing.JTextField txtConfirmPassword3;
     private javax.swing.JTextField txtCurrentPassword3;
     private javax.swing.JTextField txtNewPassword3;
-    private javax.swing.JTextField txtusername3;
+    public static javax.swing.JTextField txtusername3;
     // End of variables declaration//GEN-END:variables
 
     void check(String username, String currentPassword, String newPassword, String confirmPassword) {

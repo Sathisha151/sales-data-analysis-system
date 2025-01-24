@@ -14,16 +14,42 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="63" splitType="Stretch"/>
+		<band height="63" splitType="Stretch">
+			<staticText>
+				<reportElement x="167" y="0" width="255" height="48" uuid="b2690ed7-c0d2-4ee8-aab1-638d3abea5f7"/>
+				<textElement>
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sales Analysis (Daily)]]></text>
+			</staticText>
+		</band>
 	</title>
 	<pageHeader>
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="141" y="2" width="100" height="20" uuid="bffb6e18-1d5d-46e0-b6b5-962923151035"/>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="2" width="100" height="20" uuid="7e0f46d7-60bb-4241-995e-0a292b54f394"/>
+				<text><![CDATA[DailySales]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="77" splitType="Stretch"/>
+		<band height="77" splitType="Stretch">
+			<textField>
+				<reportElement x="141" y="27" width="100" height="20" uuid="a5ff2b88-70a3-4289-9221-d66933452517"/>
+				<textFieldExpression><![CDATA[$F{Date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="27" width="100" height="20" uuid="72f833bb-c379-4b84-b15a-4824198fa00d"/>
+				<textFieldExpression><![CDATA[$F{DailySales}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band splitType="Stretch"/>

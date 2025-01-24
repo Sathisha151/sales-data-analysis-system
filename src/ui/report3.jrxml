@@ -16,7 +16,7 @@
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="160" y="0" width="261" height="53" uuid="c9b33367-7135-4d02-8e1b-c0672c2916fc"/>
+				<reportElement x="148" y="0" width="261" height="53" uuid="c9b33367-7135-4d02-8e1b-c0672c2916fc"/>
 				<textElement>
 					<font size="24" isBold="true"/>
 				</textElement>
